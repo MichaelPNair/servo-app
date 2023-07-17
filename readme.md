@@ -9,7 +9,7 @@ This is a single page application done in HTML, CSS and Javascript with express.
 -
 -
 -
--
+- Alessandra Manalansan [GitHub Profile](https://github.com/alesmnlnsan)
 
 ## Getting Started
 
