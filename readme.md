@@ -7,7 +7,7 @@ This is a single page application done in HTML, CSS and Javascript with express.
 ## Team members
 - Michael Nair
 -
--
+- Chatkamon Chantaraparsop [Github Profile](https://github.com/zebelity)
 -
 -
 
