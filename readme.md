@@ -7,7 +7,7 @@ This is a single page application done in HTML, CSS and Javascript with express.
 ## Team members
 - Michael Nair. [GitHub Profile](https://github.com/MichaelPNair)
 -
--
+- Geoff Lazarus [GitHub](https://github.com/geoffjlazarus/)
 -
 - Alessandra Manalansan [GitHub Profile](https://github.com/alesmnlnsan)
 
