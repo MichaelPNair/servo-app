@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
-    border: solid red 2px;
+    border: solid red 1px;
+    font-family: 'Fira Sans Condensed', sans-serif;
   }
 
 .grid-wrapper {
@@ -12,28 +13,70 @@
 .left-sidebar,
 .right-sidebar{
     border: solid black 2px;
-    gap: 10px;
 }
 
 .left-sidebar {
-  background-color: rgb(103, 103, 241); 
   display: grid;
-  grid-template-rows: repeat(4, auto); 
+  grid-template-rows: repeat(4, auto);
 }
 
 .right-sidebar {
-  background-color: rgb(223, 52, 183); /* Adjust the background color as needed */
   display: grid;
   grid-template-rows: repeat(3, auto); 
 }
 
-/*  display map */
+.spotlight, .stats, .oil-prices, .about, .time, .location, .nearest {
+  padding: 0 10px 0 10px;
+}
 
-  #map {
-    height: 100%;
-  }
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+.spotlight {
+  background-color: #fde2e4;
+}
+
+.stats {
+  background-color: #faf0ca;
+}
+
+.oil-prices {
+  background-color: #bee1e6;
+}
+
+.about {
+  background-color: #c9e4ca;
+}
+
+.about > ul {
+  padding-left: 0;
+}
+.about li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+}
+
+.about li a {
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.time {
+  background-color: #cddafd;
+}
+
+.location {
+  background-color: #ffd6a5;
+}
+
+.nearest {
+  background-color: #fff1e6;
+}
+/*  display map */
+#map {
+  height: 100%;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
