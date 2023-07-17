@@ -5,7 +5,7 @@ This is a single page application done in HTML, CSS and Javascript with express.
 ## Technologies used
 
 ## Team members
-- Michael Nair
+- Michael Nair. [GitHub Profile](https://github.com/MichaelPNair)
 -
 -
 -
