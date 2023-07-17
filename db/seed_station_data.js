@@ -1,3 +1,6 @@
+require('dotenv').config()
+const db = require('./index')
+
 
 const dataDump = `1,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1,Cobram,Operational,BP,,3701 Murray Valley Highway,Cobram,Victoria,5,20110725,,-35.9211754139999,145.638305815
 2,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2,Horsham,Operational,Atlas Fuels Pty Ltd,,2 O'Callaghans Parade,Horsham,Victoria,5,20110725,,-36.7191071299999,142.199983937
@@ -1098,7 +1101,7 @@ const dataDump = `1,Petrol Station,An establishment where a range of fuel produc
 1097,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1097,Caltex Bundaberg,Operational,Caltex,,257-259 Bourbong Street,Bundaberg West,Queensland,5,20110725,,-24.8683849999999,152.338916
 1098,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1098,Woolworths Caltex Bundaberg West,Operational,Caltex,,38 Barolin Street,Bundaberg Central,Queensland,5,20110725,,-24.871364,152.350967
 1099,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1099,Caltex Bundaberg South,Operational,Caltex,,143A Targo Street,Bundaberg South,Queensland,5,20110725,,-24.878294,152.354874
-1100,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1100,Woolworths Caltex Bundaberg,Operational,Caltex,,59 Takalvan Street,Millbank,Queensland,3,20110725,"There is a petrol station at this address, but I don't see any pumps.",-24.878634,152.328323
+1100,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1100,Woolworths Caltex Bundaberg,Operational,Caltex,,59 Takalvan Street,Millbank,Queensland,3,20110725,"There is a petrol station at this address but I don't see any pumps.",-24.878634,152.328323
 1101,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1101,Caltex Bundaberg,Operational,Caltex,,278 Goodwood Road,Thabeban,Queensland,5,20110725,,-24.8991369999999,152.364273
 1102,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1102,Caltex Apple Tree Creek,Operational,Caltex,,Bruce Highway,Apple Tree Creek,Queensland,5,20110725,,-25.21403,152.233475
 1103,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,1103,Woolworths Caltex Childers,Operational,Caltex,,109 Churchill Street,Childers,Queensland,3,20110725,Confirmed on Caltex website,-25.232456,152.271156
@@ -2306,7 +2309,7 @@ const dataDump = `1,Petrol Station,An establishment where a range of fuel produc
 2305,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2305,Hamilton,Operational,United,,5541 Lyell Highway,Hamilton,Tasmania,5,20110725,Unmanned,-42.5629647119999,146.82484625
 2306,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2306,Ridgley,Operational,Liberty,,1021 Ridgley Highway,Ridgley,Tasmania,5,20110725,,-41.149986854,145.833419845
 2307,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2307,MoGas Port Lincoln,Operational,MoGas Regional,,18 Stevenson Street,Port Lincoln,South Australia,5,20110725,,-34.725925219,135.869139764
-2308,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2308,Brown Range,Operational,Caltex,,40 Harbour Road,Greys Plain/Carnarvon,Western Australia,5,20110725,"Truck Stop with 1 above ground tank and large parking lot, Listed as Carnarvon",-24.882005433,113.701149056
+2308,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2308,Brown Range,Operational,Caltex,,40 Harbour Road,Greys Plain/Carnarvon,Western Australia,5,20110725,"Truck Stop with 1 above ground tank and large parking lot Listed as Carnarvon",-24.882005433,113.701149056
 2309,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2309,Burnie Truckstop,Operational,Shell,,16 River Road,Wivenhoe,Tasmania,5,20110725,,-41.07338003,145.924218018
 2310,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2310,Clontarf,Operational,7-Eleven Pty Ltd,,9 Elizabeth Street,Clontarf,Queensland,5,20120713,,-27.2605940999999,153.0798051
 2311,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,2311,Murrumba Downs,Operational,7-Eleven Pty Ltd,,9 Blyth Road,Murrumba Downs,Queensland,5,20120713,,-27.2733170999999,153.0151801
@@ -5276,12 +5279,67 @@ for (let j = 0; j < data.length; j++) {
     dataDetails.push(object)
 }
 
-console.log(dataDetails[0])
+
+const logoUrls = {
+    '7-Eleven Pty Ltd': 'https://fuelprice.io/wp-content/uploads/2018/07/7-eleven-64x62.png',
+    'Ampol': 'https://fuelprice.io/wp-content/uploads/2018/10/ampol-favicon-64x64.png',
+    'Atlas Fuels Pty Ltd': 'https://fuelprice.io/wp-content/uploads/2023/05/atlas-logo-64x36.webp',
+    'AusFuel': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'BP': 'https://fuelprice.io/wp-content/uploads/2018/07/bp-favicon.png',
+    'Barrett Distributors': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Bogas': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Caltex': 'https://fuelprice.io/wp-content/uploads/2018/07/caltex-favicon-64x64.png',
+    'Freedom Fuels': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'GoGas': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Gull': 'https://fuelprice.io/wp-content/uploads/2018/10/gull-favicon-64x64.png',
+    'Horizon': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Independent Fuel Supplies': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'KMS Fuel': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Liberty': 'https://fuelprice.io/wp-content/uploads/2018/08/liberty-favicon-64x64.png',
+    'Lowes Fuels/Lubes Group': 'https://fuelprice.io/wp-content/uploads/2018/07/lowes-favicon-64x64.png',
+    'Matilda Fuels': 'https://fuelprice.io/wp-content/uploads/2018/12/matilda-favicon-64x64.png',
+    'Metro': 'https://fuelprice.io/wp-content/uploads/2018/08/metro-favicon-64x64.png',
+    'MoGas Regional': 'https://fuelprice.io/wp-content/uploads/2021/03/mogas-favicon-64x64.png',
+    'Mobil': 'https://fuelprice.io/wp-content/uploads/2018/08/mobil-favicon-64x64.png',
+    'Musgrave Cafe': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Neumann Petroleum': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Oz Fuel': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Peak': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Peregrine Corporation': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Perrys': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Potters Petroleum': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Q8': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Scott Petroleum (Shell)': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
+    'Shell': 'https://fuelprice.io/wp-content/uploads/2018/07/shell-favicon.png',
+    'United': 'https://fuelprice.io/wp-content/uploads/2018/08/united-favicon-64x64.png',
+    'Unknown': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png'
+}
+
+dataDetails.forEach((item) => {
+
+    const sql = `INSERT INTO stations (name, owner, address, suburb, state, latitude, longitude, logo_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
+     db.query(sql,[item.NAME, item.OWNER, item.ADDRESS, item.SUBURB, item.STATE, item.LATITUDE, item.LONGITUDE, logoUrls[item.OWNER]]).then((res) => console.log(sql))
+  })
 
 
-console.log(dataDetails[1]);
 
-console.log(dataDetails.at(-1))
+// let ownersArr = []
+
+// dataDetails.forEach(item => {
+//    if (!ownersArr.includes(item.OWNER) ) {
+//     ownersArr.push(item.OWNER)
+//    }
+// });
+
+//console.log(ownersArr.sort())
+//console.log(logoUrls['7-Eleven Pty Ltd'])
+
+// console.log(dataDetails[0])
+
+
+// console.log(dataDetails[1]);
+
+// console.log(dataDetails.at(-1))
 
 
 // OBJECTID,FEATURETYPE,DESCRIPTION,CLASS,FID,NAME,OPERATIONALSTATUS,OWNER,INDUSTRYID,ADDRESS,SUBURB,STATE,SPATIALCONFIDENCE,REVISED,COMMENT,LATITUDE,LONGITUDE
