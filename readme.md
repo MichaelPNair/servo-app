@@ -6,7 +6,7 @@ This is a single page application done in HTML, CSS and Javascript with express.
 
 ## Team members
 - Michael Nair
--
+- Andy Wang [GitHub Profile](https://github.com/andysw8)
 -
 -
 -
