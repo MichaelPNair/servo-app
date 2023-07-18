@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +10,30 @@
     <title>Servo App</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="grid-wrapper">
 
         <div class="left-sidebar">
             <div class="spotlight">
-            <h2>Spotlight</h2>
+                <h2>Spotlight</h2>
             </div>
             <div class="stats">
-            <h2>Stats</h2>
+                <h2>Stats</h2>
                 <h4>Total station: 5244</h4>
                 <h4>Total Owners: 32</h4>
             </div>
             <div class="oil-prices">
-            <h2>Latest Prices</h2>
+
+                <h2>Latest Prices</h2>
+                <div class="date">
+
+                </div>
+                <div class="price">
+                    <li>oil 1</li>
+                    <li>oil 2</li>
+                    <li>oil 3</li>
+                </div>
             </div>
             <div class="about">
                 <h2>About</h2>
@@ -35,15 +46,15 @@
                     <li>Andy Wang <a href="https://github.com/andysw8">GitHub Profile</a></li>
                     <li>Alessandra Manalansan <a href="https://github.com/alesmnlnsan">GitHub Profile</a></li>
                 </ul>
-        
+
             </div>
-    
+
         </div>
         <div id="map">
-            
+
         </div>
         <div class="right-sidebar">
-    
+
             <div class="time">
                 <h2>Time</h2>
                 <div class="show-time">
@@ -51,15 +62,19 @@
                 </div>
             </div>
             <div class="location">
+<<<<<<< HEAD
             <h2>Map Center Location</h2>
             <!-- Lat: -34.456172411199496
             Long: 149.46732580957246 -->
             <p>Lat: <span class="lat"> </span></p>
             <p>Lng: <span class="lng"> </span></p>
+=======
+                <h2>Map Center Location</h2>
+>>>>>>> dec2fb7 (oil price section date added)
             </div>
             <div class="nearest">
-            <h2>Nearest</h2>
-               
+                <h2>Nearest</h2>
+
             </div>
         </div>
 
@@ -85,7 +100,7 @@
                 }));
             d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n))
         })({
-            key: '<%=process.env.GOOGLEMAPS_API_KEY%>' ,
+            key: '<%=process.env.GOOGLEMAPS_API_KEY%>',
             v: "weekly",
         });
 
@@ -94,7 +109,7 @@
 
 
         async function initMap() {
-            const centerPosition = {lat: -34.456172411199496, lng: 149.46732580957246};
+            const centerPosition = { lat: -34.456172411199496, lng: 149.46732580957246 };
 
             
 
@@ -134,11 +149,11 @@
                 .then(response => response.json())
                 .then(data => {
 
-                   infoWindow = new google.maps.InfoWindow();
+                    infoWindow = new google.maps.InfoWindow();
 
 
                     data.forEach(station => {
-                        
+
                         const marker = new google.maps.Marker({
                             map: map,
                             position: { lat: station.latitude, lng: station.longitude },
@@ -157,15 +172,17 @@
 
                     });
                 })
-            }
+        }
 
         initMap();
 
-        </script>
+    </script>
 
     <script type="module" src="servos_api.js"></script>
-    <script type="module" src="components/nearest.js" ></script>
-    <script type="module" src="components/time.js" ></script>
+    <script type="module" src="components/oil-prices.js"></script>
+    <script type="module" src="components/nearest.js"></script>
+    <script type="module" src="components/time.js"></script>
     <script type="module" src="client.js"></script>
 </body>
+
 </html>
