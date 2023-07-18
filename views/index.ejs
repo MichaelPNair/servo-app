@@ -16,7 +16,11 @@
 
         <div class="left-sidebar">
             <div class="spotlight">
-                <h2>Spotlight</h2>
+            <h2>Spotlight</h2>
+            <a id="refresh" href="">Refresh</a>
+            <div id="logo"></div>
+            <p>Name: <span class="name"></span></p>
+            <p>Address: <span class="address"></span></p>
             </div>
             <div class="stats">
                 <h2>Stats</h2>
@@ -62,15 +66,11 @@
                 </div>
             </div>
             <div class="location">
-<<<<<<< HEAD
             <h2>Map Center Location</h2>
             <!-- Lat: -34.456172411199496
             Long: 149.46732580957246 -->
             <p>Lat: <span class="lat"> </span></p>
             <p>Lng: <span class="lng"> </span></p>
-=======
-                <h2>Map Center Location</h2>
->>>>>>> dec2fb7 (oil price section date added)
             </div>
             <div class="nearest">
                 <h2>Nearest</h2>
@@ -171,7 +171,31 @@
                         // })
 
                     });
+
+                
+            fetch('/api/stations/random')
+                .then(response => response.json())
+                .then(data => {
+                    const name = document.querySelector('.name')
+                    const address = document.querySelector('.address')
+                    const logo = document.querySelector('#logo')
+                    const logoImage = document.createElement("img")
+
+                    logo.appendChild(logoImage)
+                    logoImage.src = data.logo_url
+                    logoImage.style.height = '64px'
+                    logoImage.style.width = '64px'
+                    
+                    name.innerText = data.name
+                    address.innerText = data.address
+
+                    console.log(data)
                 })
+
+                const refresh = document.querySelector('#refresh')
+
+                    refresh.addEventListener('click', fetch('/api/stations/random'))
+            })
         }
 
         initMap();

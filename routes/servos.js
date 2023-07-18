@@ -12,6 +12,11 @@ router.get('/stations/all', (req, res) => {
         .then(station => res.json(station))
 })
 
+router.get('/stations/random', (req, res) => {
+    Station.randomStation()
+        .then(station => res.json(station))
+})
+
 router.get('/owners', (req, res) => {
     Station.findOwner()
         .then(station => res.json(station))

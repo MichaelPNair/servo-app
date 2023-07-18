@@ -5,5 +5,8 @@ const Station = require('./models/servo')
 //     .findAll()
 //     .then(station => console.log(station))
 
-Station.findOwner()
-    .then(station => console.log(station))
+// Station.findOwner()
+//     .then(station => console.log(station))
+
+// Station.randomStation()
+//     .then(station => console.log(station))
