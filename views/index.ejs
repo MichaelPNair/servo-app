@@ -52,6 +52,10 @@
             </div>
             <div class="location">
             <h2>Map Center Location</h2>
+            <!-- Lat: -34.456172411199496
+            Long: 149.46732580957246 -->
+            <p>Lat: <span class="lat"> </span></p>
+            <p>Lng: <span class="lng"> </span></p>
             </div>
             <div class="nearest">
             <h2>Nearest</h2>
@@ -87,20 +91,43 @@
 
         let map, infoWindow;
 
-    
+
 
         async function initMap() {
             const centerPosition = {lat: -34.456172411199496, lng: 149.46732580957246};
 
+            
+
             const {Map} = await google.maps.importLibrary("maps");
             const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
 
+            
             map = new Map(document.getElementById("map"), {
                 zoom: 13,
                 minZoom: 9,
                 center: centerPosition,
                 mapId: "DEMO_MAP_ID",
             });
+            
+            let latLng = map.getCenter()
+
+            map.addListener('center_changed', () => {
+                latLng = map.getCenter()
+                let lat = document.querySelector('.lat')
+                let lng = document.querySelector('.lng')
+                lat.innerText = latLng.lat()
+                lng.innerText = latLng.lng()
+            })
+
+
+            let lat = document.querySelector('.lat')
+            let lng = document.querySelector('.lng')
+            lat.innerText = latLng.lat()
+            lng.innerText = latLng.lng()
+           // debugger
+    
+
+           
 
 
             fetch('/api/stations/all')
@@ -115,17 +142,18 @@
                         const marker = new google.maps.Marker({
                             map: map,
                             position: { lat: station.latitude, lng: station.longitude },
+                            address: station.address,
                             title: station.name,
                         });
 
-                        marker.addListener('mouseover', () => {
-                            infoWindow.setContent(marker.title);
+                        marker.addListener('click', () => {
+                            infoWindow.setContent(`<b>${marker.title}</b><p>${marker.address}</p>`);
                             infoWindow.open(map, marker);
                         });
 
-                        marker.addListener('mouseout', () => {
-                            infoWindow.close();
-                        })
+                        // marker.addListener('mouseout', () => {
+                        //     infoWindow.close();
+                        // })
 
                     });
                 })
