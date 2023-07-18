@@ -21,10 +21,21 @@ function findOwner() {
      .then(res => res.rows)
 }
 
+function randomStation() {
+    const sql = `
+    SELECT *
+    FROM stations
+    ORDER BY RANDOM()
+    LIMIT 1;
+    `
+    return db.query(sql)
+     .then(res => res.rows[0])
+}
 
 const Station = {
     findAll,
-    findOwner
+    findOwner,
+    randomStation
 }
 
 module.exports = Station
