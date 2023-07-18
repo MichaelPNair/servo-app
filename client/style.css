@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    border: solid red 1px;
+    
     font-family: 'Fira Sans Condensed', sans-serif;
   }
 
@@ -27,10 +27,22 @@
 
 .spotlight, .stats, .oil-prices, .about, .time, .location, .nearest {
   padding: 0 10px 0 10px;
+  border: solid black 1px;
 }
 
 .spotlight {
   background-color: #fde2e4;
+  display: flex;
+  grid-template-columns: 3fr 1fr;
+}
+
+.refresh {
+  margin-top: 30px;
+}
+
+#logo {
+  padding-top: 10px;
+  height: 50px;
 }
 
 .stats {
@@ -55,13 +67,17 @@
   list-style-type: none;
 }
 
-.about li a {
+.about, li, a ,.refresh, .price {
   margin-left: auto;
   text-decoration: none;
 }
 
+a {
+  color: gray;
+}
+
 .time {
-  background-color: #cddafd;
+  background-color: white;
 }
 
 .location {
@@ -71,6 +87,7 @@
 .nearest {
   background-color: #fff1e6;
 }
+
 /*  display map */
 #map {
   height: 100%;
@@ -88,6 +105,8 @@ html, body {
 .stations {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  border-top: solid black 1px;
+  padding: 10px 0 10px 0;
 }
 
 .time {
@@ -95,5 +114,52 @@ html, body {
 }
 
 .show-time {
+  margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 22px;
+}
+
+#clockContainer {
+  position: relative;
+  margin: auto;
+  height: 10vw;
+  /*to make the height and width responsive*/
+  width: 10vw;
+  background: url("https://media.geeksforgeeks.org/wp-content/uploads/20210302161254/imgonlinecomuaCompressToSizeOmNATjUMFKw-300x300.jpg") no-repeat;
+  /*setting our background image*/
+  background-size: 100%;
+  margin-bottom: 10px;
+}
+
+#hour,
+#minute,
+#second {
+  position: absolute;
+  background: black;
+  border-radius: 10px;
+  transform-origin: bottom;
+}
+
+#hour {
+  width: 1.8%;
+  height: 25%;
+  top: 25%;
+  left: 48.85%;
+  opacity: 0.8;
+}
+
+#minute {
+  width: 1.6%;
+  height: 30%;
+  top: 19%;
+  left: 48.9%;
+  opacity: 0.8;
+}
+
+#second {
+  width: 1%;
+  height: 40%;
+  top: 9%;
+  left: 49.25%;
+  opacity: 0.8;
 }

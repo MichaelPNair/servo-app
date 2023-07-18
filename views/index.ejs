@@ -16,11 +16,15 @@
 
         <div class="left-sidebar">
             <div class="spotlight">
-            <h2>Spotlight</h2>
-            <a id="refresh" href="">Refresh</a>
-            <div id="logo"></div>
-            <p>Name: <span class="name"></span></p>
-            <p>Address: <span class="address"></span></p>
+                <div class="address-info">
+                    <h2>Spotlight</h2>
+                    <p>Name: <span class="name"></span></p>
+                    <p>Address: <span class="address"></span></p>
+                </div>
+                <div class="refresh">
+                    <a id="refresh" href="">Refresh</a>
+                    <div id="logo"></div>
+                </div>
             </div>
             <div class="stats">
                 <h2>Stats</h2>
@@ -60,9 +64,11 @@
         <div class="right-sidebar">
 
             <div class="time">
-                <h2>Time</h2>
-                <div class="show-time">
-
+                <div class="show-time"></div>
+                <div id="clockContainer">
+                    <div id="hour"></div>
+                    <div id="minute"></div>
+                    <div id="second"></div>
                 </div>
             </div>
             <div class="location">
