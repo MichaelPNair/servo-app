@@ -79,10 +79,12 @@
             v: "weekly",
         });
 
-        let map;
+        let map, infoWindow;
+
+    
 
         async function initMap() {
-            const centerPosition = {lat: -34.397, lng: 150.644};
+            const centerPosition = {lat: -34.456172411199496, lng: 149.46732580957246};
 
             const {Map} = await google.maps.importLibrary("maps");
             const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
@@ -94,15 +96,31 @@
                 mapId: "DEMO_MAP_ID",
             });
 
+
             fetch('/api/stations/all')
                 .then(response => response.json())
                 .then(data => {
+
+                   infoWindow = new google.maps.InfoWindow();
+
+
                     data.forEach(station => {
-                        const marker = new AdvancedMarkerElement({
-                        map: map,
-                        position: { lat: station.latitude, lng: station.longitude },
-                        title: station.name,
+                        
+                        const marker = new google.maps.Marker({
+                            map: map,
+                            position: { lat: station.latitude, lng: station.longitude },
+                            title: station.name,
                         });
+
+                        marker.addListener('mouseover', () => {
+                            infoWindow.setContent(marker.title);
+                            infoWindow.open(map, marker);
+                        });
+
+                        marker.addListener('mouseout', () => {
+                            infoWindow.close();
+                        })
+
                     });
                 })
             }
