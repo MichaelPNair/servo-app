@@ -85,14 +85,27 @@
             const centerPosition = {lat: -34.397, lng: 150.644};
 
             const {Map} = await google.maps.importLibrary("maps");
-            // const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
+            const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
 
             map = new Map(document.getElementById("map"), {
                 zoom: 13,
+                minZoom: 9,
                 center: centerPosition,
                 mapId: "DEMO_MAP_ID",
             });
-        }
+
+            fetch('/api/stations/all')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(station => {
+                        const marker = new AdvancedMarkerElement({
+                        map: map,
+                        position: { lat: station.latitude, lng: station.longitude },
+                        title: station.name,
+                        });
+                    });
+                })
+            }
 
         initMap();
 
