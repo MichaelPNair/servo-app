@@ -30,3 +30,5 @@ This is a single page application done in HTML, CSS and Javascript with express.
 
 ## Future Improvements
 
+* Price Comparison: Implement a price comparison feature that allows users to compare petrol prices between different stations in the same area.
+
