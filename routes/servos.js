@@ -17,6 +17,15 @@ router.get('/stations/random', (req, res) => {
         .then(station => res.json(station))
 })
 
+router.get('/stations/nearest', (req, res) => {
+    let lat = req.query.lat
+    let lng = req.query.lng
+    let radius = req.query.radius
+
+    Station.getNearestStations(lat, lng, radius)
+        .then(stations => res.json(stations))
+})
+
 router.get('/stations/bounds', (req, res) => {
     let neLat = req.query.neLat
     let neLng = req.query.neLng
