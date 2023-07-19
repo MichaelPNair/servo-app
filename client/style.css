@@ -38,6 +38,7 @@
 
 .refresh {
   margin-top: 30px;
+  margin-left: auto;
 }
 
 #logo {
@@ -68,7 +69,6 @@
 }
 
 .about, li, a ,.refresh, .price {
-  margin-left: auto;
   text-decoration: none;
 }
 
