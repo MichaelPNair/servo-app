@@ -22,4 +22,9 @@ router.get('/owners', (req, res) => {
         .then(station => res.json(station))
 })
 
+router.get("/stats", (req, res) => {
+    Station.getStats()
+        .then(stats => res.json(stats))   
+})
+
 module.exports = router
