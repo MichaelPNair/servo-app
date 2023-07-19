@@ -6,7 +6,7 @@ fetchStations()
 
 function renderStations(stations) {
   const firstTenStations = stations.slice(0,10)
-  console.log(firstTenStations)
+  //console.log(firstTenStations)
   firstTenStations.forEach(station => {
     const div = document.createElement("div")
     div.classList.add("stations")

@@ -65,6 +65,29 @@ async function initMap() {
                 //     infoWindow.close();
                 // })
             });
+
+            map.addListener('dragend', () => {
+                let bounds = map.getBounds();
+                let northEast = bounds.getNorthEast()
+                let southWest = bounds.getSouthWest()
+                let northWest = { lat: southWest.lat(), lng: northEast.lng() }
+                let southEast = { lat: northEast.lat(), lng: southWest.lng() }
+
+               console.log(`NE Lat ${northEast.lat()}, NE Lng: ${northEast.lng()}, SW lat ${southWest.lat()}, SW Lng ${southWest.lng()}`)
+               console.log(`SE lat: ${southEast.lat}, NW lng: ${northWest.lng} NW lat ${northWest.lat}, SE lng: ${southEast.lng}`)
+            })
+
+            map.addListener('zoom_changed', () => {
+                let bounds = map.getBounds();
+                let northEast = bounds.getNorthEast()
+                let southWest = bounds.getSouthWest()
+                let northWest = { lat: southWest.lat(), lng: northEast.lng() }
+                let southEast = { lat: northEast.lat(), lng: southWest.lng() }
+
+               console.log(`NE Lat ${northEast.lat()}, NE Lng: ${northEast.lng()}, SW lat ${southWest.lat()}, SW Lng ${southWest.lng()}`)
+               console.log(`SE lat: ${southEast.lat}, NW lng: ${northWest.lng} NW lat ${northWest.lat}, SE lng: ${southEast.lng}`)
+            })
+
         
     fetch('/api/stations/random')
         .then(response => response.json())
@@ -80,7 +103,7 @@ async function initMap() {
             
             name.innerText = data.name
             address.innerText = data.address
-            console.log(data)
+          //  console.log(data)
         })
         const refresh = document.querySelector('#refresh')
             refresh.addEventListener('click', fetch('/api/stations/random'))
@@ -92,4 +115,7 @@ async function initMap() {
     }
     
 }
+
+
+
 initMap();
