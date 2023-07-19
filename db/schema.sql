@@ -12,3 +12,6 @@ CREATE TABLE stations (
     logo_url TEXT
 );
 
+-- add this to database to setup lat, lng to distance calculation
+create extension cube;
+create extension earthdistance;

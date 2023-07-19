@@ -104,6 +104,17 @@ function getAllBoundStations(coordinates) {
     .then(res => res.rows)
 }
 
+function getNearestStations(lat, lng, radius){
+
+  const sql = 
+ `
+ with x as (select id, name,address,logo_url,latitude, longitude, ((point(s.longitude,s.latitude) <@> point($1,$2))* 1609.34) as distance_meters from stations s order by distance_meters)
+ select * from x where distance_meters<$3 limit 700;
+ `
+return db.query(sql, [lng, lat, radius])
+  .then(res => res.rows)
+}
+
 const Station = {
   findAll,
   findOwner,
@@ -112,7 +123,8 @@ const Station = {
   totalOwners,
   totalStations,
   getAllBoundStations,
-  getStats
+  getStats,
+  getNearestStations
 }
 
 module.exports = Station
