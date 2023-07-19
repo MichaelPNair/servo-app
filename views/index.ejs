@@ -111,7 +111,7 @@
                 map = new Map(document.getElementById("map"), {
                 zoom: 6,
                 minZoom: 9,
-                center: {lat: -37.877661226893736, lng: 147.98225089385193  },//centerPosition,
+                center: centerPosition,
                 mapId: "DEMO_MAP_ID",
             });
 
@@ -186,6 +186,7 @@
             
         }
         initMap();
+
     </script>
     <script type="module" src="servos_api.js"></script>
     <script type="module" src="components/map.js"></script>
