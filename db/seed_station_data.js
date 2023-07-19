@@ -5310,7 +5310,7 @@ const logoUrls = {
     'Potters Petroleum': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
     'Q8': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
     'Scott Petroleum (Shell)': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png',
-    'Shell': 'https://fuelprice.io/wp-content/uploads/2018/07/shell-favicon-64x64.png',
+    'Shell': 'https://fuelprice.io/wp-content/uploads/2018/07/shell-favicon.png',
     'United': 'https://fuelprice.io/wp-content/uploads/2018/08/united-favicon-64x64.png',
     'Unknown': 'https://fuelprice.io/wp-content/uploads/2018/10/fuelprice-logo-64x64.png'
 }
