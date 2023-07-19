@@ -25,7 +25,6 @@
             </div>
             <div class="stats">
                 <h2>Stats</h2>
-                
             </div>
             <div class="oil-prices">
                 <h2>Latest Prices</h2>
@@ -50,7 +49,6 @@
             </div>
         </div>
         <div id="map">
-            
         </div>
         <div class="right-sidebar">
             <div class="time">
@@ -63,8 +61,7 @@
             </div>
             <div class="location">
             <h2>Map Center Location</h2>
-            <!-- Lat: -34.456172411199496
-            Long: 149.46732580957246 -->
+            
             <p>Lat: <span class="lat"> </span></p>
             <p>Lng: <span class="lng"> </span></p>
             </div>
@@ -127,12 +124,6 @@
                 lat.innerText = latLng.lat()
                 lng.innerText = latLng.lng()
             })
-            // let lat = document.querySelector('.lat')
-            // let lng = document.querySelector('.lng')
-            // lat.innerText = latLng.lat()
-            // lng.innerText = latLng.lng()
-           // debugger
-    
            
             fetch('/api/stations/all')
                 .then(response => response.json())
@@ -141,25 +132,14 @@
                     data.forEach(station => {
                         const marker = new google.maps.Marker({
                             map: map,
-                            animation: google.maps.Animation.DROP,
                             position: { lat: station.latitude, lng: station.longitude },
                             address: station.address,
                             title: station.name,
-                            icon: {
-                                size: new google.maps.Size(64, 64),
-                                scaledSize: new google.maps.Size(40, 40),
-                                url: station.logo_url
-                            }
                         });
-
-                        
                         marker.addListener('click', () => {
                             infoWindow.setContent(`<b>${marker.title}</b><p>${marker.address}</p>`);
                             infoWindow.open(map, marker);
                         });
-                        // marker.addListener('mouseout', () => {
-                        //     infoWindow.close();
-                        // })
                     });
                 
             fetch('/api/stations/random')
@@ -185,10 +165,10 @@
                 });
             } else {
                 alert("Please enable location services to use this feature.");
-            }
-            
+            } 
         }
         initMap();
+        
     </script>
     <script type="module" src="servos_api.js"></script>
     <script type="module" src="components/oil-prices.js"></script>
