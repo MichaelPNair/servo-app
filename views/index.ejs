@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +9,8 @@
     <title>Servo App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="grid-wrapper">
-
         <div class="left-sidebar">
             <div class="spotlight">
                 <div class="address-info">
@@ -32,10 +29,8 @@
                 <h4>Total Owners: 32</h4>
             </div>
             <div class="oil-prices">
-
                 <h2>Latest Prices</h2>
                 <div class="date">
-
                 </div>
                 <div class="price">
                     <!-- <li>oil 1</li>
@@ -46,7 +41,6 @@
             <div class="about">
                 <h2>About</h2>
                 <h3>Team Mercator</h3>
-
                 <ul>
                     <li>Michael Nair <a href="https://github.com/MichaelPNair">GitHub Profile</a></li>
                     <li>Chatkamon Chantaraparsop <a href="https://github.com/zebelity">GitHub Profile</a></li>
@@ -54,15 +48,11 @@
                     <li>Andy Wang <a href="https://github.com/andysw8">GitHub Profile</a></li>
                     <li>Alessandra Manalansan <a href="https://github.com/alesmnlnsan">GitHub Profile</a></li>
                 </ul>
-
             </div>
-
         </div>
         <div id="map">
-
         </div>
         <div class="right-sidebar">
-
             <div class="time">
                 <div class="show-time"></div>
                 <div id="clockContainer">
@@ -80,12 +70,9 @@
             </div>
             <div class="nearest">
                 <h2>Nearest</h2>
-
             </div>
         </div>
-
     </div>
-
     <script>
         (g => {
             var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window;
@@ -109,27 +96,28 @@
             key: '<%=process.env.GOOGLEMAPS_API_KEY%>',
             v: "weekly",
         });
-
         let map, infoWindow;
 
-
-
         async function initMap() {
-            const centerPosition = { lat: -34.456172411199496, lng: 149.46732580957246 };
-
             
-
             const {Map} = await google.maps.importLibrary("maps");
             const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
-
             
-            map = new Map(document.getElementById("map"), {
-                zoom: 13,
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                document.querySelector('.lat').textContent = lat;
+                document.querySelector('.lng').textContent = lng;
+                const centerPosition = { lat: lat, lng: lng  }
+
+                map = new Map(document.getElementById("map"), {
+                zoom: 16,
                 minZoom: 9,
                 center: centerPosition,
                 mapId: "DEMO_MAP_ID",
             });
-            
+
             let latLng = map.getCenter()
 
             map.addListener('center_changed', () => {
@@ -139,45 +127,32 @@
                 lat.innerText = latLng.lat()
                 lng.innerText = latLng.lng()
             })
-
-
-            let lat = document.querySelector('.lat')
-            let lng = document.querySelector('.lng')
-            lat.innerText = latLng.lat()
-            lng.innerText = latLng.lng()
+            // let lat = document.querySelector('.lat')
+            // let lng = document.querySelector('.lng')
+            // lat.innerText = latLng.lat()
+            // lng.innerText = latLng.lng()
            // debugger
     
-
            
-
-
             fetch('/api/stations/all')
                 .then(response => response.json())
                 .then(data => {
-
                     infoWindow = new google.maps.InfoWindow();
-
-
                     data.forEach(station => {
-
                         const marker = new google.maps.Marker({
                             map: map,
                             position: { lat: station.latitude, lng: station.longitude },
                             address: station.address,
                             title: station.name,
                         });
-
                         marker.addListener('click', () => {
                             infoWindow.setContent(`<b>${marker.title}</b><p>${marker.address}</p>`);
                             infoWindow.open(map, marker);
                         });
-
                         // marker.addListener('mouseout', () => {
                         //     infoWindow.close();
                         // })
-
                     });
-
                 
             fetch('/api/stations/random')
                 .then(response => response.json())
@@ -186,7 +161,6 @@
                     const address = document.querySelector('.address')
                     const logo = document.querySelector('#logo')
                     const logoImage = document.createElement("img")
-
                     logo.appendChild(logoImage)
                     logoImage.src = data.logo_url
                     logoImage.style.height = '64px'
@@ -194,25 +168,28 @@
                     
                     name.innerText = data.name
                     address.innerText = data.address
-
                     console.log(data)
                 })
-
                 const refresh = document.querySelector('#refresh')
-
                     refresh.addEventListener('click', fetch('/api/stations/random'))
             })
+
+
+
+                });
+            } else {
+                alert("Please enable location services to use this feature.");
+            }
+            
+
+            
         }
-
         initMap();
-
     </script>
-
     <script type="module" src="servos_api.js"></script>
     <script type="module" src="components/oil-prices.js"></script>
     <script type="module" src="components/nearest.js"></script>
     <script type="module" src="components/time.js"></script>
     <script type="module" src="client.js"></script>
 </body>
-
 </html>
