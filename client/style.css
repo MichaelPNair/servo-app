@@ -50,6 +50,21 @@
   background-color: #faf0ca;
 }
 
+.stats-total {
+  padding-bottom: 5px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  border-top: solid black 1px;
+}
+
+.even-row {
+  background-color: #ffd6a5;
+}
+
 .oil-prices {
   background-color: #bee1e6;
 }
