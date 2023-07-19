@@ -1,3 +1,5 @@
+import { displayNearestStations } from "./nearest.js";
+
 let map, infoWindow;
 
 async function initMap() {
@@ -12,6 +14,8 @@ async function initMap() {
         document.querySelector('.lat').textContent = lat;
         document.querySelector('.lng').textContent = lng;
         const centerPosition = { lat: lat, lng: lng  }
+
+        displayNearestStations(centerPosition.lat, centerPosition.lng)
 
 //======= > finds current address based on current center positions
         const geocoder = new google.maps.Geocoder()
