@@ -6,63 +6,51 @@ async function initMap() {
     
     const {Map} = await google.maps.importLibrary("maps");
     const {AdvancedMarkerElement} = await google.maps.importLibrary("marker");
-    
+
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(position => {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-        document.querySelector('.lat').textContent = lat;
-        document.querySelector('.lng').textContent = lng;
-        const centerPosition = { lat: lat, lng: lng  }
-
-        const geocoder = new google.maps.Geocoder();
-        const addressLatLng = new google.maps.LatLng(lat, lng);
-
-    geocoder.geocode({ location: addressLatLng }, (results, status) => {
-      if (status === google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          const address = results[0].formatted_address;
-          document.querySelector('.center-address').textContent = address;
-        } else {
-          document.querySelector('.center-address').textContent = 'Geocoding failed';
-        }
-      } else {
-        document.querySelector('.center-address').textContent = 'Geocoding failed';
-      }
-    });
-
-    map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 6,
-      minZoom: 9,
-      center: centerPosition,
-      mapId: "DEMO_MAP_ID",
-    });
-
-    let latLng = map.getCenter();
+          const lat = position.coords.latitude
+          const lng = position.coords.longitude
+          document.querySelector('.lat').textContent = lat
+          document.querySelector('.lng').textContent = lng
+          const centerPosition = { lat: lat, lng: lng }
     
-    map.addListener('center_changed', () => {
-        latLng = map.getCenter()
-        let lat = document.querySelector('.lat')
-        let lng = document.querySelector('.lng')
-        lat.innerText = latLng.lat()
-        lng.innerText = latLng.lng()
-
-    })
-
-    map.addListener('center_changed', () => {
-        latLng = map.getCenter()
-        let lat = document.querySelector('.lat')
-        let lng = document.querySelector('.lng')
-        lat.innerText = latLng.lat()
-        lng.innerText = latLng.lng()
-    })
+          const geocoder = new google.maps.Geocoder()
+          const addressLatLng = new google.maps.LatLng(lat, lng)
+    
+          const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 6,
+            minZoom: 9,
+            center: centerPosition,
+            mapId: "DEMO_MAP_ID",
+          });
+    
+          let latLng = map.getCenter()
+    
+          map.addListener('center_changed', () => {
+            latLng = map.getCenter()
+            let lat = document.querySelector('.lat')
+            let lng = document.querySelector('.lng')
+            lat.innerText = latLng.lat()
+            lng.innerText = latLng.lng()
+    
+            const addressLatLng = new google.maps.LatLng(latLng.lat(), latLng.lng())
+    
+            geocoder.geocode({ location: addressLatLng }, (results, status) => {
+              if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+                const address = results[0].formatted_address
+                document.querySelector('.center-address').textContent = address;
+              } else {
+                document.querySelector('.center-address').textContent = 'Geocoding failed'
+              }
+            })
+          })
    
-
    
     fetch('/api/stations/all')
         .then(response => response.json())
         .then(data => {
-            infoWindow = new google.maps.InfoWindow();
+            infoWindow = new google.maps.InfoWindow()
             data.forEach(station => {
                 const marker = new google.maps.Marker({
                     map: map,
@@ -75,17 +63,17 @@ async function initMap() {
                         scaledSize: new google.maps.Size(40, 40),
                         url: station.logo_url
                     }
-                });
+                })
 
                 
                 marker.addListener('click', () => {
-                    infoWindow.setContent(`<b>${marker.title}</b><p>${marker.address}</p>`);
-                    infoWindow.open(map, marker);
+                    infoWindow.setContent(`<b>${marker.title}</b><p>${marker.address}</p>`)
+                    infoWindow.open(map, marker)
                 });
                 // marker.addListener('mouseout', () => {
                 //     infoWindow.close();
                 // })
-            });
+            })
 
             map.addListener('dragend', () => {
                 let bounds = map.getBounds();
@@ -99,7 +87,7 @@ async function initMap() {
             })
 
             map.addListener('zoom_changed', () => {
-                let bounds = map.getBounds();
+                let bounds = map.getBounds()
                 let northEast = bounds.getNorthEast()
                 let southWest = bounds.getSouthWest()
                 let northWest = { lat: southWest.lat(), lng: northEast.lng() }
@@ -130,13 +118,13 @@ async function initMap() {
             refresh.addEventListener('click', fetch('/api/stations/random'))
     })
 
-        });
+        })
     } else {
-        alert("Please enable location services to use this feature.");
+        alert("Please enable location services to use this feature.")
     }
     
 }
 
 
 
-initMap();
+initMap()
