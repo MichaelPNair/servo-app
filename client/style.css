@@ -179,3 +179,11 @@ html, body {
   opacity: 0.8;
 }
 
+.sidebar.hidden {
+  display: none;
+}
+
+/* CSS to show the sidebars */
+.sidebar.visible {
+  display: block;
+}
