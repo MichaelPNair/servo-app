@@ -1,8 +1,13 @@
 import { fetchNearestStations } from "../servos_api.js";
 const nearestSection = document.querySelector(".nearest");
 
-fetchNearestStations(-37.7981773, 144.9989004)
-  .then(renderStations)
+export function displayNearestStations(lat, lng) {
+  return fetchNearestStations(lat, lng)
+    .then(renderStations)
+}
+
+// fetchNearestStations(-37.7981773, 144.9989004)
+  // .then(renderStations)
 
 function renderStations(stations) {
   const firstTenStations = stations.slice(0,10)
