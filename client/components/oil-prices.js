@@ -14,7 +14,7 @@ const prices = ['.wti-price', '.brent-price', '.natural-price']
     for(let i = 0; i < symbols.length; i++) {
         fetch(`https://api.futures-api.com/last?symbol=${symbols[i]}`, {
             headers: {
-                'x-api-key': 'CHCzj9LdpT1pTjL76rBC01vhn6ghrZYh82lFaCez'
+                'x-api-key': 'xkhNjWSpLv1IqseSaCizE3g96ylVPKwE5I07UTJq'
             }
         } )
         .then(res => res.json())

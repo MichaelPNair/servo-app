@@ -50,8 +50,11 @@
   background-color: #faf0ca;
 }
 
-.stats-total {
+.stats-total, .date, .center-address {
   padding-bottom: 5px;
+  font-family: 'Fira Sans Condensed', sans-serif;
+  font-size: 18px;
+  font-weight: bolder;
 }
 
 .stats-row {
@@ -67,6 +70,13 @@
 
 .oil-prices {
   background-color: #bee1e6;
+}
+
+.price {
+  margin: 10px 0 10px 0;
+  padding: 5px;
+  letter-spacing: 1px;
+  word-spacing: 2px;
 }
 
 .about {
@@ -91,6 +101,10 @@ a {
   color: gray;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 .time {
   background-color: white;
 }
@@ -101,6 +115,11 @@ a {
 
 .nearest {
   background-color: #fff1e6;
+}
+
+.distance {
+  font-family: 'Fira Sans Condensed', sans-serif;
+  font-weight: bolder;
 }
 
 /*  display map */
@@ -114,7 +133,8 @@ html, body {
 }
 
 .logo {
-  height: 30px;
+  height: 35px;
+  margin-left: 10px;
 }
 
 .stations {
