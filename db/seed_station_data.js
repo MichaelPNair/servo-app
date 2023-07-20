@@ -5248,23 +5248,8 @@ const dataDump = `1,Petrol Station,An establishment where a range of fuel produc
 5244,Petrol Station,An establishment where a range of fuel products can be purchased by motorists,Petrol Station,5244,BP Roxby Downs,Operational,BP,5500,26 Olympic Way,Roxby Downs,South Australia,3,20110725,No imagery over Roxby Downs,-30.5536094899999,136.8937159`
 
 let data = dataDump.split('\n')
-// console.log(data[0])
-
-// let firstEntry = data[0]
-
-// let array = firstEntry.split(',')
-// console.log(array)
-
 
 let keys = ['OBJECTID', 'FEATURETYPE', 'DESCRIPTION', 'CLASS', 'FID', 'NAME', 'OPERATIONALSTATUS', 'OWNER','INDUSTRYID', 'ADDRESS', 'SUBURB', 'STATE', 'SPATIALCONFIDENCE', 'REVISED', 'COMMENT', 'LATITUDE', 'LONGITUDE']
-
-// const object = {}
-
-// for(let i = 0; i < array.length; i++) {
-//     let key = keys[i]; 
-//     let element = array[i]
-//     object[key] = element
-// }
 
 let dataDetails = []
 
@@ -5321,25 +5306,3 @@ dataDetails.forEach((item) => {
      db.query(sql,[item.NAME, item.OWNER, item.ADDRESS, item.SUBURB, item.STATE, item.LATITUDE, item.LONGITUDE, logoUrls[item.OWNER]]).then((res) => console.log(sql))
   })
 
-
-
-// let ownersArr = []
-
-// dataDetails.forEach(item => {
-//    if (!ownersArr.includes(item.OWNER) ) {
-//     ownersArr.push(item.OWNER)
-//    }
-// });
-
-//console.log(ownersArr.sort())
-//console.log(logoUrls['7-Eleven Pty Ltd'])
-
-// console.log(dataDetails[0])
-
-
-// console.log(dataDetails[1]);
-
-// console.log(dataDetails.at(-1))
-
-
-// OBJECTID,FEATURETYPE,DESCRIPTION,CLASS,FID,NAME,OPERATIONALSTATUS,OWNER,INDUSTRYID,ADDRESS,SUBURB,STATE,SPATIALCONFIDENCE,REVISED,COMMENT,LATITUDE,LONGITUDE

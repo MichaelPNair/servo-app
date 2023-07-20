@@ -1,6 +1,6 @@
 document.addEventListener('keydown', (event) => {
   // Check if Ctrl + B (key code 66) is pressed
-  if (event.ctrlKey && event.keyCode === 66) {
+  if (event.ctrlKey && event.key === "b") {
       toggleSidebars();
   }
 });

@@ -5,7 +5,6 @@ function refreshTime() {
   const timeDisplay = document.querySelector(".show-time")
   const date = new Date()
   const dateString = date.toDateString()
-  //const timeString = date.toLocaleTimeString()
   
   timeDisplay.textContent = dateString
 }

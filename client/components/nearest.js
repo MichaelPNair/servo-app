@@ -6,9 +6,6 @@ export function displayNearestStations(lat, lng) {
     .then(renderStations)
 }
 
-// fetchNearestStations(-37.7981773, 144.9989004)
-  // .then(renderStations)
-
 function renderStations(stations) {
   const firstTenStations = stations.slice(0,10)
   // console.log(firstTenStations)
