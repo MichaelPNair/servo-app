@@ -35,13 +35,33 @@ async function initMap() {
         })
 
         map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 6,
+        zoom: 14,
         minZoom: 9,
         center: centerPosition,
         mapId: "DEMO_MAP_ID",
         });
 
         let latLng = map.getCenter();
+
+        function loadMarkers(map, markers) {
+            let bounds = map.getBounds()
+            fetch(`/api/stations/bounds?neLat=${bounds.getNorthEast().lat()}&neLng=${bounds.getNorthEast().lng()}&swLat=${bounds.getSouthWest().lat()}&swLng=${bounds.getSouthWest().lng()}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(station => {
+                        if (bounds.contains({ lat: station.latitude, lng: station.longitude })) {
+                            const existingMarker = markers.find(marker => marker.title === station.name);
+
+                            if (existingMarker) {
+                                existingMarker.setPosition({ lat: station.latitude, lng: station.longitude });
+                            } else {
+                                const newMarker = createMarker(station);
+                                markers.push(newMarker);
+                            }
+                        }
+                    })
+                })
+        }
         
         map.addListener('center_changed', () => {
             latLng = map.getCenter()
@@ -51,6 +71,9 @@ async function initMap() {
             lng.innerText = latLng.lng()
 
         })
+
+        
+
 
 //======= > creating markers       
         function createMarker(station) {
@@ -74,59 +97,28 @@ async function initMap() {
         
             return marker
         }
-        
-//======= > placing markers only in specific bounds
-        fetch('/api/stations/all')
-            .then(response => response.json())
-            .then(data => {
-                infoWindow = new google.maps.InfoWindow()
-                let markers = []
-        
-                map.addListener('dragend', () => {
-                    let bounds = map.getBounds()
-                        fetch(`/api/stations/bounds?neLat=${bounds.getNorthEast().lat()}&neLng=${bounds.getNorthEast().lng()}&swLat=${bounds.getSouthWest().lat()}&swLng=${bounds.getSouthWest().lng()}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                data.forEach(station => {
-                                    if (bounds.contains({ lat: station.latitude, lng: station.longitude })) {
-                                        const existingMarker = markers.find(marker => marker.title === station.name);
-            
-                                        if (existingMarker) {
-                                            existingMarker.setPosition({ lat: station.latitude, lng: station.longitude });
-                                        } else {
-                                            const newMarker = createMarker(station);
-                                            markers.push(newMarker);
-                                        }
-                                    }
-                                })
-                            })
-    
-                map.addListener('zoom_changed', () => {
-                    let bounds = map.getBounds()
-                        fetch(`/api/stations/bounds?neLat=${bounds.getNorthEast().lat()}&neLng=${bounds.getNorthEast().lng()}&swLat=${bounds.getSouthWest().lat()}&swLng=${bounds.getSouthWest().lng()}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                data.forEach(station => {
-                                    if (bounds.contains({ lat: station.latitude, lng: station.longitude })) {
-                                        const existingMarker = markers.find(marker => marker.title === station.name);
-            
-                                        if (existingMarker) {
-                                            existingMarker.setPosition({ lat: station.latitude, lng: station.longitude });
-                                        } else {
-                                            const newMarker = createMarker(station);
-                                            markers.push(newMarker);
-                                        }
-                                    }
-                                })
-                            })
-                        })
-                    })
-                })
-        })
-        } else {
-            alert("Please enable location services to use this feature.")
-        }
-        
-    }
 
-    initMap();
+    
+//======= > placing markers only in specific bounds
+        infoWindow = new google.maps.InfoWindow()
+        let markers = []
+
+        map.addListener('tilesloaded', () => {
+            loadMarkers(map, markers)
+        })
+
+        map.addListener('dragend', () => {
+            loadMarkers(map, markers)
+
+        map.addListener('zoom_changed', () => {
+            loadMarkers(map,markers)
+
+                    })
+            })
+        })
+    } else {
+        alert("Please enable location services to use this feature.")
+    }
+}
+
+initMap();
