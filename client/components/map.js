@@ -72,9 +72,6 @@ async function initMap() {
 
         })
 
-        
-
-
 //======= > creating markers       
         function createMarker(station) {
             const marker = new google.maps.Marker({
@@ -98,7 +95,6 @@ async function initMap() {
             return marker
         }
 
-    
 //======= > placing markers only in specific bounds
         infoWindow = new google.maps.InfoWindow()
         let markers = []

@@ -44,7 +44,4 @@ function renderStats(stats) {
     statsSection.appendChild(row)
 
   })
-
-
-
 }

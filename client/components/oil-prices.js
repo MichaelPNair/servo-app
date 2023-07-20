@@ -1,5 +1,3 @@
-// require('dotenv').config()
-
 
 const date = new Date()
 const dateString = date.toLocaleDateString('en-GB')
