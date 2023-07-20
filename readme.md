@@ -36,8 +36,6 @@ This is a single page application done in HTML, CSS and Javascript with express.
 ### Initial Screen
 ![Screenshot initial servo app page](/screenshot/servo_app_screen.png)
 
-### Sidebar can be hidden by pressing Ctrl+b
-![Screenshot sidebar hidden](/screenshot/sidebar_hiding.png)
 
 ## Future Improvements
 
